@@ -5,7 +5,6 @@ import java.util.*;
 public class B {
     public static void main(String[] args) {
         int[] b = new int[10];
-        int[] c = new int[b.length];
         System.out.print("Введите числа:");
         Scanner scan = new Scanner(System.in);
         for (int i = 0;i<10;i++){
@@ -39,12 +38,11 @@ public class B {
     }
 
     public static void B1(int[] b) {
-        for(int i = 0; i<10;i++){
-            if(b[i]%2==0){
-                System.out.println("Четное число:"+b[i]+" ");
-            }
-            else {
-                System.out.print("Нечетное число:"+b[i] + " ");
+        for (int i = 0; i < 10; i++) {
+            if (b[i] % 2 == 0) {
+                System.out.println("Четное число:" + b[i] + " ");
+            } else {
+                System.out.print("Нечетное число:" + b[i] + " ");
             }
         }
         System.out.println();
@@ -115,8 +113,10 @@ public class B {
 
     public static void B8(int[] b) {
         boolean[] visited = new boolean[b.length];
+        int[] values = new int[b.length];
+        int[] frequencies = new int[b.length];
+        int uniqueCount = 0;
 
-        System.out.println("Частота встречаемости:");
         for (int i = 0; i < b.length; i++) {
             if (!visited[i]) {
                 int count = 1;
@@ -126,10 +126,32 @@ public class B {
                         count++;
                     }
                 }
-                System.out.println(b[i] + ": " + count + " раз(а)");
+                values[uniqueCount] = b[i];
+                frequencies[uniqueCount] = count;
+                uniqueCount++;
             }
         }
+
+        for (int i = 0; i < uniqueCount - 1; i++) {
+            for (int j = i + 1; j < uniqueCount; j++) {
+                if (frequencies[i] < frequencies[j]) {
+                    int tempFreq = frequencies[i];
+                    frequencies[i] = frequencies[j];
+                    frequencies[j] = tempFreq;
+
+                    int tempVal = values[i];
+                    values[i] = values[j];
+                    values[j] = tempVal;
+                }
+            }
+        }
+
+        System.out.println("Частота встречаемости чисел в порядке убывания:");
+        for (int i = 0; i < uniqueCount; i++) {
+            System.out.println(values[i] + ": " + frequencies[i] + " раз(а)");
+        }
     }
+
 
 
     public static void B9(int[] b) {
