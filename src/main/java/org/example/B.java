@@ -112,20 +112,25 @@ public class B {
         }
         System.out.println();
     }
-    //Разобраться
+
     public static void B8(int[] b) {
-        Map<Integer, Integer> freqMap = new HashMap<>();
-        for (int value : b) {
-            freqMap.put(value, freqMap.getOrDefault(value, 0) + 1);
-        }
-        List<Map.Entry<Integer, Integer>> list = new ArrayList<>(freqMap.entrySet());
-        list.sort(Map.Entry.<Integer, Integer>comparingByValue().reversed());
+        boolean[] visited = new boolean[b.length];
 
         System.out.println("Частота встречаемости:");
-        for (Map.Entry<Integer, Integer> entry : list) {
-            System.out.println(entry.getKey() + ": " + entry.getValue() + " раз(а)");
+        for (int i = 0; i < b.length; i++) {
+            if (!visited[i]) {
+                int count = 1;
+                for (int j = i + 1; j < b.length; j++) {
+                    if (b[i] == b[j]) {
+                        visited[j] = true;
+                        count++;
+                    }
+                }
+                System.out.println(b[i] + ": " + count + " раз(а)");
+            }
         }
     }
+
 
     public static void B9(int[] b) {
         for (int value : b) {
